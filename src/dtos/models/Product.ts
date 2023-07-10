@@ -1,22 +1,62 @@
-import { Field, Float, ID, ObjectType } from "type-graphql";
+import { ObjectType, Field, ID, Int, Float } from "type-graphql";
+import { IsNotEmpty, IsInt, Min, Max, IsUrl } from "class-validator";
+
+@ObjectType()
+export class Review {
+  @Field()
+  @IsNotEmpty()
+  user: string;
+
+  @Field()
+  @IsNotEmpty()
+  description: string;
+
+  @Field(() => Int)
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  rating: number;
+
+  @Field()
+  @IsNotEmpty()
+  date: string;
+}
 
 @ObjectType()
 export class Product {
   @Field(() => ID)
   id: string;
 
-  @Field({ nullable: true }) // Make the name field optional
-  name?: string;
+  @Field()
+  @IsUrl()
+  imageUrl: string;
 
-  @Field(() => Float, { nullable: true })
-  price?: number;
+  @Field(() => Int)
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  rating: number;
 
-  @Field({ nullable: true })
-  category?: string;
+  @Field(() => Float)
+  @IsNotEmpty()
+  price: number;
 
-  @Field(() => Float, { nullable: true })
-  reviewRating?: number;
+  @Field()
+  @IsNotEmpty()
+  name: string;
 
-  @Field(() => Date)
-  createdAt: Date;
+  @Field()
+  @IsNotEmpty()
+  description: string;
+
+  @Field()
+  @IsNotEmpty()
+  category: string;
+
+  @Field()
+  @IsNotEmpty()
+  created_at: string;
+
+  @Field(() => [Review])
+  reviews: Review[];
 }

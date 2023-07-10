@@ -3,11 +3,6 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-"""
-The javascript `Date` as string. Type represents date and time as the ISO Date string.
-"""
-scalar DateTime
-
 type Mutation {
   createProduct(input: ProductInput!): Product!
   deleteProduct(id: String!): String!
@@ -15,21 +10,42 @@ type Mutation {
 }
 
 type Product {
-  category: String
-  createdAt: DateTime!
+  category: String!
+  created_at: String!
+  description: String!
   id: ID!
-  name: String
-  price: Float
-  reviewRating: Float
+  imageUrl: String!
+  name: String!
+  price: Float!
+  rating: Int!
+  reviews: [Review!]!
 }
 
 input ProductInput {
-  category: String
-  name: String
-  price: Float
-  reviewRating: Float
+  category: String!
+  description: String!
+  imageUrl: String!
+  name: String!
+  price: Float!
+  rating: Int!
+  reviews: [ReviewInput!]!
 }
 
 type Query {
-  products: [Product!]!
+  getAllProducts: [Product!]!
+  getProduct(id: String!): Product!
+}
+
+type Review {
+  date: String!
+  description: String!
+  rating: Int!
+  user: String!
+}
+
+input ReviewInput {
+  date: String!
+  description: String!
+  rating: Int!
+  user: String!
 }

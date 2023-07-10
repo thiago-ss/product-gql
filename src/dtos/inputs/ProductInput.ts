@@ -1,33 +1,55 @@
-import { Field, Float, InputType } from "type-graphql";
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsString,
-  IsOptional,
-} from "class-validator";
+import { Field, InputType, Int, Float } from "type-graphql";
+import { IsNotEmpty, IsInt, Min, Max, IsUrl } from "class-validator";
+
+@InputType()
+export class ReviewInput {
+  @Field()
+  @IsNotEmpty()
+  user: string;
+
+  @Field()
+  @IsNotEmpty()
+  description: string;
+
+  @Field(() => Int)
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  rating: number;
+
+  @Field()
+  @IsNotEmpty()
+  date: string;
+}
 
 @InputType()
 export class ProductInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  name?: string;
+  @Field()
+  @IsUrl()
+  imageUrl: string;
 
-  @Field(() => Float, { nullable: true })
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  price?: number;
+  @Field(() => Int)
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  rating: number;
 
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  category?: string;
+  @Field(() => Float)
+  @IsNotEmpty()
+  price: number;
 
-  @Field(() => Float, { nullable: true })
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  reviewRating?: number;
+  @Field()
+  @IsNotEmpty()
+  name: string;
+
+  @Field()
+  @IsNotEmpty()
+  description: string;
+
+  @Field()
+  @IsNotEmpty()
+  category: string;
+
+  @Field(() => [ReviewInput])
+  reviews: ReviewInput[];
 }
