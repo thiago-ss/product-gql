@@ -49,7 +49,12 @@ export class ProductResolver {
       throw new Error("Product not found");
     }
 
-    const updatedProduct = plainToClass(Product, { ...input, id });
+    const existingProduct = products[index];
+    const updatedProduct = plainToClass(Product, {
+      ...existingProduct,
+      ...input,
+      id,
+    });
 
     await validateOrReject(updatedProduct);
 

@@ -24,32 +24,32 @@ export class ReviewInput {
 
 @InputType()
 export class ProductInput {
-  @Field()
+  @Field({ nullable: true })
   @IsUrl()
-  imageUrl: string;
+  imageUrl?: string;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @IsInt()
   @Min(1)
   @Max(5)
-  rating: number;
+  rating?: number;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @IsNotEmpty()
-  price: number;
+  price?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
-  name: string;
+  name?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
-  description: string;
+  description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
-  category: string;
+  category?: string;
 
-  @Field(() => [ReviewInput])
-  reviews: ReviewInput[];
+  @Field(() => [ReviewInput], { nullable: true })
+  reviews?: ReviewInput[];
 }

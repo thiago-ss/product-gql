@@ -22,13 +22,13 @@ type Product {
 }
 
 input ProductInput {
-  category: String!
-  description: String!
-  imageUrl: String!
-  name: String!
-  price: Float!
-  rating: Int!
-  reviews: [ReviewInput!]!
+  category: String
+  description: String
+  imageUrl: String
+  name: String
+  price: Float
+  rating: Int
+  reviews: [ReviewInput!]
 }
 
 type Query {
